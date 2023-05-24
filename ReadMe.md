@@ -19,3 +19,8 @@
 
 <br>
 <br>
+
+- [x] Containerized using Docker.
+
+<br>
+<br>
