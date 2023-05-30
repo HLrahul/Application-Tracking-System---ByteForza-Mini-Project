@@ -1,9 +1,16 @@
-import { P } from "../styles/Home.styles";
+import { HomeWrapper, Branding, Title, SubTitle } from "../styles/Home.styles";
 
 function Home() {
 
   return (
-    <P>Home</P>
+    <HomeWrapper>
+      <Branding>
+        <Title>Track - Now</Title>
+        <SubTitle>
+          Keep track of your applications and excel in your career.
+        </SubTitle>
+      </Branding>
+    </HomeWrapper>
   )
 
 }
