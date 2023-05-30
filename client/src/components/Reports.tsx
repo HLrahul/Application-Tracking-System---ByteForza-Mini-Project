@@ -1,4 +1,4 @@
-import { P } from '../styles/Reoports.styles';
+import { P } from '../styles/Reports.styles';
 
 function Reports() {
 

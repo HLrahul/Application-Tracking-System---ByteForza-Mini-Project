@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from "react-router-dom";
 
 export const NavContainer = styled.div`
   height: 10svh;
@@ -12,7 +13,7 @@ export const NavContainer = styled.div`
 
 export const TitleContainer = styled.div``;
 
-export const A = styled.a`
+export const A = styled(NavLink)`
   text-decoration: none;
   cursor: pointer;
   color: white;

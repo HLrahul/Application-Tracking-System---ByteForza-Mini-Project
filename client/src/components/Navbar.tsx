@@ -13,7 +13,7 @@ function Navbar() {
     <>
       <NavContainer>
         <TitleContainer>
-          <A href="/home">
+          <A to="/">
             <Title>Track-Now</Title>
             <SubTitle>Track your application!</SubTitle>
           </A>
@@ -21,9 +21,9 @@ function Navbar() {
 
         <NavLinks>
           <Ul className={optionsActive ? "active" : ""}>
-            <Li><A>Candidate</A></Li>
-            <Li><A>Interview Feedback</A></Li>
-            <Li><A>Reports</A></Li>
+            <Li><A to="/candidates">Candidates</A></Li>
+            <Li><A to="/interview">Interview Feedback</A></Li>
+            <Li><A to="/reports">Reports</A></Li>
           </Ul>
         </NavLinks>
 
