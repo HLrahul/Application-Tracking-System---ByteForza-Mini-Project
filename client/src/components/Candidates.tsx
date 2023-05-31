@@ -1,10 +1,12 @@
-import { P } from '../styles/Candidates.styles';
+import { CandidateWrapper } from '../styles/Candidates.styles';
 
 function Candidates() {
 
   return (
     <>
-      <P>Candidates</P>
+      <CandidateWrapper>
+        This is Candidates Page!
+      </CandidateWrapper>
     </>
   )
 

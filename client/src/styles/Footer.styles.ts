@@ -9,4 +9,10 @@ export const P = styled.p`
   justify-content: center;
   color: white;
   font-size: small;
+  letter-spacing: 1px;
+  padding: 0px 35px;
+
+  @media (max-width: 768px) {
+    font-size: x-small;
+  }
 `;

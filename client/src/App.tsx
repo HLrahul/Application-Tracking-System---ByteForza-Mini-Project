@@ -20,9 +20,10 @@ function App() {
           <Route path='/interview' element={<InterviewFeedback />} />
           <Route path='/reports' element={<Reports />} />
         </Routes>
+
+        <Footer />
       </Router>
 
-      <Footer />
     </>
   )
 }

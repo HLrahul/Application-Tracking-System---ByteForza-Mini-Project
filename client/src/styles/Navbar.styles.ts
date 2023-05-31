@@ -4,7 +4,8 @@ import { NavLink } from "react-router-dom";
 export const NavContainer = styled.div`
   height: 15svh;
   width: 100%;
-  position: fixed;
+  top: 0;
+  position: sticky;
   background: black;
   padding: 20px 35px;
   display: flex;
@@ -19,6 +20,7 @@ export const A = styled(NavLink)`
   cursor: pointer;
   color: white;
   transition: 0.3s ease;
+  letter-spacing: 1px;
 
   &:hover{
     color: grey;
@@ -42,10 +44,10 @@ export const Ul = styled.ul`
 
   @media (max-width: 768px) {
     position: fixed;
-    top: 10svh;
+    top: 15svh;
     padding-top: 10px;
     right: -100%;
-    height: 25svh;
+    height: 20svh;
     gap: 20px;
     flex-direction: column;
     background-color: black;
