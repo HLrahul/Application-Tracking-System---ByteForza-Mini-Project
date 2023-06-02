@@ -1,3 +1,7 @@
+"""
+Models for the Table in the database.
+"""
+
 from app import db
 
 class Candidate(db.Model):
