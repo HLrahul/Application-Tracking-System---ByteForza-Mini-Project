@@ -128,7 +128,7 @@ function AddCandidate() {
           <datalist id="sources">
             <option value="LinkedIn">LinkedIn</option>
             <option value="Naukri">Naukri</option>
-            <option value="Referred by">Referred</option>
+            <option value="Referred by ">Referred</option>
           </datalist>
         </InputPair>
 
@@ -139,7 +139,7 @@ function AddCandidate() {
 
         <InputPair>
           <P>Resume</P>
-          <Input type="file" onChange={handleFileChange} />
+          <Input type="file" accept=".pdf, .doc, .docx" onChange={handleFileChange} />
         </InputPair>
 
       </Form>
