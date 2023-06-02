@@ -43,11 +43,12 @@ export const Ul = styled.ul`
   display: flex;
 
   @media (max-width: 768px) {
+    z-index: 999;
     position: fixed;
     top: 15svh;
     padding-top: 10px;
     right: -100%;
-    height: 20svh;
+    height: 25svh;
     gap: 20px;
     flex-direction: column;
     background-color: black;

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { HomeWrapper, Branding, Title, SubTitle, ButtonsSection, Button } from "../styles/Home.styles";
+import { HomeWrapper, Branding, Title, SubTitle, ButtonsSection } from "../styles/Home.styles";
+import { Button } from "../styles/Common.styles";
 
 function Home() {
 
@@ -10,14 +11,14 @@ function Home() {
       <Branding>
         <Title>Track - Now</Title>
         <SubTitle>
-          Keep track of your applications and excel in your career.
+          Tracking applications made efficient!
         </SubTitle>
       </Branding>
 
       <ButtonsSection>
-        <Button type="button" onClick={e => { e.preventDefault(); navigate("/candidates"); }} >Candidates</Button>
-        <Button type="button" onClick={e => { e.preventDefault(); navigate("/interview"); }} >Reviews</Button>
-        <Button type="button" onClick={e => { e.preventDefault(); navigate("/reports"); }} >Reports</Button>
+        <Button onClick={e => { e.preventDefault(); navigate("/candidates"); }} >Candidates</Button>
+        <Button onClick={e => { e.preventDefault(); navigate("/interview"); }} >Reviews</Button>
+        <Button onClick={e => { e.preventDefault(); navigate("/reports"); }} >Reports</Button>
       </ButtonsSection>
     </HomeWrapper>
   )

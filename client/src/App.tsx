@@ -6,6 +6,7 @@ import Candidates from './components/Candidates';
 import InterviewFeedback from './components/InterviewFeedback';
 import Reports from './components/Reports';
 import Footer from './components/Footer';
+import AddCandidate from './components/AddCandidate';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path='/candidates' element={<Candidates />} />
           <Route path='/interview' element={<InterviewFeedback />} />
           <Route path='/reports' element={<Reports />} />
+          <Route path="/addcandidate" element={<AddCandidate />} />
         </Routes>
 
         <Footer />

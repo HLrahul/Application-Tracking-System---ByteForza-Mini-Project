@@ -42,20 +42,3 @@ export const ButtonsSection = styled.section`
   justify-content: space-between;
   padding: 0px 5px;
 `;
-
-export const Button = styled.button`
-  cursor: pointer;
-  padding: 10px 20px;
-  border-radius: 25px;
-  outline: none;
-  border: none;
-  color: white;
-  background: black;
-  transition: 0.27s;
-
-  &:hover {
-    background: white;
-    color: black;
-    border: 1px solid black;
-  }
-`;
