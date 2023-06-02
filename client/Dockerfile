@@ -13,9 +13,6 @@ RUN npm install
 # Copy the React app code
 COPY . .
 
-# Build the React app
-RUN npm run build
-
 # Expose the React app port
 EXPOSE 3000
 
