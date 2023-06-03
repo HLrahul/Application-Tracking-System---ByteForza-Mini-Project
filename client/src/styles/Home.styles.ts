@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HomeWrapper = styled.section`
-  height: 100svh;
+  min-height: 100svh;
   width: 100%;
   padding: 0px 35px;
   display: flex;

@@ -16,6 +16,10 @@ function AddCandidate() {
     'Git',
     'Agile',
     'Problem Solving',
+    'React',
+    'TypeScript',
+    'Flask',
+    'Django',
   ];
 
   const [name, setName] = useState("");
