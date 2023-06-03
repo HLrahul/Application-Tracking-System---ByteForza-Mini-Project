@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import Home from './pages/Home';
+import Candidates from './pages/Candidates';
+import InterviewFeedback from './pages/InterviewFeedback';
+import Reports from './pages/Reports';
+
 import Navbar from "./components/Navbar";
-import Home from './components/Home';
-import Candidates from './components/Candidates';
-import InterviewFeedback from './components/InterviewFeedback';
-import Reports from './components/Reports';
 import Footer from './components/Footer';
 import AddCandidate from './components/AddCandidate';
 

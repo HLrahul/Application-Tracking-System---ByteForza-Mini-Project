@@ -18,7 +18,7 @@ class Candidate(db.Model):
     preferred_location = db.Column(db.String(50), nullable=False)
     source = db.Column(db.String(20), nullable=False)
     notes = db.Column(db.Text)
-    resume = db.Column(db.LargeBinary, nullable=False)
+    resume = db.Column(db.LargeBinary, nullable=True)
     candidate_status = db.Column(db.String(20))
     interview_panel = db.Column(db.String(100))
     interview_date_time = db.Column(db.DateTime)
