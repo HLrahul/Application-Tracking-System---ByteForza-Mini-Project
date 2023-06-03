@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { NavLink } from "react-router-dom";
 
 export const NavContainer = styled.div`
-  height: 15svh;
+  height: 12.5svh;
   width: 100%;
   top: 0;
   position: sticky;
@@ -45,7 +45,7 @@ export const Ul = styled.ul`
   @media (max-width: 768px) {
     z-index: 999;
     position: fixed;
-    top: 15svh;
+    top: 12.5svh;
     padding-top: 10px;
     right: -100%;
     height: 25svh;

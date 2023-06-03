@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { AddCandidateWrapper, Form, InputPair, P, Input, Label, Section, CommonSkillsSection, SkillLabel } from "../styles/AddCandidate.styles";
+import { AddCandidateWrapper, Form, InputPair, P, Input, Label, Section, CommonSkillsSection, SkillLabel, Left, Center, Right } from "../styles/AddCandidate.styles";
 import { Button } from "../styles/Common.styles";
+
+import axios from "../api/axios";
 
 function AddCandidate() {
 
@@ -14,13 +16,14 @@ function AddCandidate() {
     'Node.js',
     'SQL',
     'Git',
-    'Agile',
     'Problem Solving',
     'React',
     'TypeScript',
     'Flask',
     'Django',
   ];
+
+  const [response, setResponse] = useState("");
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,6 +37,32 @@ function AddCandidate() {
   const [sources, setSources] = useState("");
   const [notes, setNotes] = useState("");
   const [file, setFile] = useState<File | null>(null);
+
+  const handleSubmit = async () => {
+
+    console.log("Request SENT!")
+
+    const candidateData = {
+      'name': name,
+      'email': email,
+      'experience': experience,
+      'skills': skills,
+      'notice_period': noticePeriod,
+      'ctc': ctc,
+      'expected_ctc': expectedCtc,
+      'location': location,
+      'preferred_location': preferredLocation,
+      'sources': sources,
+      'notes': notes,
+      'resume': file,
+    }
+
+    try {
+      console.log(setResponse(await axios.post(JSON.stringify(candidateData))));
+    } catch (err) {
+      console.log(setResponse(JSON.stringify(err)));
+    }
+  }
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const skill: string = event.target.value;
@@ -59,98 +88,105 @@ function AddCandidate() {
 
   return (
     <AddCandidateWrapper>
-      <P className="add-candidate-title"> Candidate Details </P>
+      {/* <P className="add-candidate-title"> Candidate Details </P> */}
 
       <Form>
-        <InputPair>
-          <P>Name</P>
-          <Input type="text" value={name} placeholder="Name" onChange={e => { setName(e.target.value); }} required />
-        </InputPair>
 
-        <InputPair>
-          <P>Email</P>
-          <Input type="email" value={email} placeholder="Email" onChange={e => { setEmail(e.target.value); }} required />
-        </InputPair>
+        <Left>
+          <InputPair>
+            <P>Name</P>
+            <Input type="text" value={name} placeholder="Name" onChange={e => { setName(e.target.value); }} required />
+          </InputPair>
 
-        <InputPair>
-          <P>Years of Experience</P>
-          <Input type="number" value={experience} placeholder="YOE" onChange={e => { setExperience(parseInt(e.target.value)); }} required />
-        </InputPair>
+          <InputPair>
+            <P>Email</P>
+            <Input type="email" value={email} placeholder="Email" onChange={e => { setEmail(e.target.value); }} required />
+          </InputPair>
 
-        <InputPair>
-          <P>Key Skills</P>
-          <Input type="text"
-            placeholder="Add key skills"
-            value={skills}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSkills(e.target.value)} />
-          <Section>
-            {/* <P>Common Skills</P> */}
-            <CommonSkillsSection>
-              {commonSkills.map((skill: string) => (
-                <Label key={skill} className="check-box">
-                  <Input
-                    className="check-box"
-                    type="checkbox"
-                    value={skill}
-                    onChange={handleCheckboxChange}
-                  />
-                  <SkillLabel>{skill}</SkillLabel>
-                </Label>
-              ))}
-            </CommonSkillsSection>
-          </Section>
-        </InputPair>
+          <InputPair>
+            <P>Years of Experience</P>
+            <Input type="number" value={experience} placeholder="YOE" onChange={e => { setExperience(parseInt(e.target.value)); }} required />
+          </InputPair>
 
-        <InputPair>
-          <P>Notice Period</P>
-          <Input type="number" placeholder="in months" onChange={e => { setNoticePeriod(parseInt(e.target.value)); }} required />
-        </InputPair>
+          <InputPair>
+            <P>Key Skills</P>
+            <Input type="text"
+              placeholder="Add key skills"
+              value={skills}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSkills(e.target.value)} />
+            <Section>
+              {/* <P>Common Skills</P> */}
+              <CommonSkillsSection>
+                {commonSkills.map((skill: string) => (
+                  <Label key={skill} className="check-box">
+                    <Input
+                      className="check-box"
+                      type="checkbox"
+                      value={skill}
+                      onChange={handleCheckboxChange}
+                    />
+                    <SkillLabel>{skill}</SkillLabel>
+                  </Label>
+                ))}
+              </CommonSkillsSection>
+            </Section>
+          </InputPair>
+        </Left>
 
-        <InputPair>
-          <P>CTC</P>
-          <Input type="number" placeholder="Cost to Company" onChange={e => { setCtc(parseInt(e.target.value)); }} required />
-        </InputPair>
+        <Center>
+          <InputPair>
+            <P>Notice Period</P>
+            <Input type="number" placeholder="in months" onChange={e => { setNoticePeriod(parseInt(e.target.value)); }} required />
+          </InputPair>
 
-        <InputPair>
-          <P>Expected CTC</P>
-          <Input type="number" placeholder="Expected CTC" onChange={e => { setExpectedCtc(parseInt(e.target.value)); }} required />
-        </InputPair>
+          <InputPair>
+            <P>CTC</P>
+            <Input type="number" placeholder="Cost to Company" onChange={e => { setCtc(parseInt(e.target.value)); }} required />
+          </InputPair>
 
-        <InputPair>
-          <P>Location</P>
-          <Input type="text" placeholder="Location" onChange={e => { setLocation(e.target.value); }} required />
-        </InputPair>
+          <InputPair>
+            <P>Expected CTC</P>
+            <Input type="number" placeholder="Expected CTC" onChange={e => { setExpectedCtc(parseInt(e.target.value)); }} required />
+          </InputPair>
 
-        <InputPair>
-          <P>Preferred Location</P>
-          <Input type="text" placeholder="Preferred Location" onChange={e => { setPreferredLocation(e.target.value); }} required />
-        </InputPair>
+          <InputPair>
+            <P>Location</P>
+            <Input type="text" placeholder="Location" onChange={e => { setLocation(e.target.value); }} required />
+          </InputPair>
 
-        <InputPair>
-          <P>Source</P>
-          <Input type="text" placeholder="Source" onChange={e => { setSources(e.target.value) }} list="sources" />
-          <datalist id="sources">
-            <option value="LinkedIn">LinkedIn</option>
-            <option value="Naukri">Naukri</option>
-            <option value="Referred by ">Referred</option>
-          </datalist>
-        </InputPair>
+          <InputPair>
+            <P>Preferred Location</P>
+            <Input type="text" placeholder="Preferred Location" onChange={e => { setPreferredLocation(e.target.value); }} required />
+          </InputPair>
 
-        <InputPair>
-          <P>Notes</P>
-          <Input className="notes-text-area" type="text-area" placeholder="Notes about the candidate" onChange={e => { setNotes(e.target.value); }} />
-        </InputPair>
+          <InputPair>
+            <P>Source</P>
+            <Input type="text" placeholder="Source" onChange={e => { setSources(e.target.value) }} list="sources" />
+            <datalist id="sources">
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Naukri">Naukri</option>
+              <option value="Referred by ">Referred</option>
+            </datalist>
+          </InputPair>
+        </Center>
 
-        <InputPair>
-          <P>Resume</P>
-          <Input type="file" accept=".pdf, .doc, .docx" onChange={handleFileChange} />
-        </InputPair>
+        <Right>
+          <InputPair>
+            <P>Notes</P>
+            <Input className="notes-text-area" type="text-area" placeholder="Notes about the candidate" onChange={e => { setNotes(e.target.value); }} />
+          </InputPair>
+
+          <InputPair>
+            <P>Resume</P>
+            <Input type="file" accept=".pdf, .doc, .docx" onChange={handleFileChange} />
+          </InputPair>
+
+          <Button type="submit" className="add-candidate-btn" onClick={e => { e.preventDefault(); handleSubmit; }}>
+            + Add Candidate
+          </Button>
+        </Right>
 
       </Form>
-
-      <Button className="add-candidate-btn">
-        + Add Candidate
-      </Button>
 
     </AddCandidateWrapper>
   )

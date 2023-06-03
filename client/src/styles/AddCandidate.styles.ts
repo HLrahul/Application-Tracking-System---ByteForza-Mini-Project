@@ -7,10 +7,20 @@ export const AddCandidateWrapper = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 0px;
+  padding: 1rem 0px;
 `;
 
-export const Form = styled.form``;
+export const Form = styled.form`
+  border: 1px solid black;
+  padding: 2.5rem;
+  display: flex;
+  gap: 4rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0;
+  }
+`;
 
 export const InputPair = styled.div`
   padding: 15px 0px;
@@ -71,7 +81,8 @@ export const Section = styled.section`
   width: 16rem;
   display: flex;
   flex-direction: column;
-  background: gray;
+  background: transparent;
+  border: 1px solid black;
   border-radius: 10px;
   outline: none;
 `;
@@ -84,3 +95,9 @@ export const CommonSkillsSection = styled.section`
 export const SkillLabel = styled.section`
   padding-left: 5px;
 `;
+
+export const Left = styled.div``;
+
+export const Center = styled.div``;
+
+export const Right = styled.div``;
