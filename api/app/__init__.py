@@ -12,5 +12,8 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 
 from app import models
-from app import database
+
+from app.database import create_database
+create_database()
+
 from app import routes

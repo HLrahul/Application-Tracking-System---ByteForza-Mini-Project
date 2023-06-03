@@ -2,6 +2,8 @@
 Creates the Tables for the relevant Models in the Database.
 """
 
-from app import db
+from app import app, db
 
-db.create_all()
+def create_database():
+    with app.app_context():
+        db.create_all()
