@@ -11,9 +11,9 @@ export const Button = styled.button`
   transition: 0.27s;
 
   &:hover {
-    background: white;
-    color: black;
-    border: 1px solid black;
+    background: gray;
+    color: white;
+    /* border: 1px solid black; */
   }
 
   &.add-candidate-btn {

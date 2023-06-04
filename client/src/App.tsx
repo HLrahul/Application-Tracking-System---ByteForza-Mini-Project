@@ -8,6 +8,7 @@ import Reports from './pages/Reports';
 import Navbar from "./components/Navbar";
 import Footer from './components/Footer';
 import AddCandidate from './components/AddCandidate';
+import EditCandidate from './components/EditCandidate';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/candidates' element={<Candidates />} />
+          <Route path='/candidate/:id' element={<EditCandidate />} />
           <Route path='/interview' element={<InterviewFeedback />} />
           <Route path='/reports' element={<Reports />} />
           <Route path="/addcandidate" element={<AddCandidate />} />

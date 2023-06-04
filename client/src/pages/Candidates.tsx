@@ -44,6 +44,7 @@ function Candidates() {
                     <Th>Notice Period</Th>
                     <Th>CTC</Th>
                     <Th>Exp CTC</Th>
+                    <Th>Edit</Th>
                   </Tr>
 
                   {
@@ -56,6 +57,9 @@ function Candidates() {
                           <Td data-label="Notice Period"> {candidate['notice_period']} </Td>
                           <Td data-label="CTC"> {candidate['ctc']} </Td>
                           <Td data-label="Expected CTC"> {candidate['expected_ctc']} </Td>
+                          <Td data-label="Edit">
+                            <Button onClick={e => { e.preventDefault(); navigate(`/candidate/${candidate['id']}`) }} >Edit</Button>
+                          </Td>
                         </Tr>
                       )
                     })
@@ -69,7 +73,7 @@ function Candidates() {
             )
         }
 
-        <Button onClick={e => { e.preventDefault(); handleClick(); }} > Add Candidate </Button>
+        <Button style={{ marginBottom: '2rem' }} onClick={e => { e.preventDefault(); handleClick(); }} > Add Candidate </Button>
       </CandidateWrapper>
     </>
   )

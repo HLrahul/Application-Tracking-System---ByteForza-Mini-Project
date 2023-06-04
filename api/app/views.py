@@ -36,6 +36,36 @@ def get_candidates():
     return jsonify(candidates_list), 200
 
 
+def get_candidate(candidate_id):
+    candidate = Candidate.query.get(candidate_id)
+
+    if candidate:
+        resume_link = f"/resume/{candidate.id}"
+
+        candidate_data = {
+            'id': candidate.id,
+            'name': candidate.name,
+            'email': candidate.email,
+            'phone': candidate.phone,
+            'experience': candidate.experience,
+            'skills': candidate.skills,
+            'notice_period': candidate.notice_period,
+            "ctc": candidate.ctc,
+            "expected_ctc": candidate.expected_ctc,
+            "location": candidate.location,
+            "preferred_location": candidate.preferred_location,
+            "source": candidate.source,
+            "notes": candidate.notes,
+            "resume": resume_link,
+        }
+
+        return jsonify(candidate_data), 200
+    
+    else:
+        return jsonify({'error': 'Candidate not found'}), 404
+
+
+
 def add_candidate():
     candidate_data = request.json
 

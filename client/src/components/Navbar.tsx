@@ -21,9 +21,9 @@ function Navbar() {
 
         <NavLinks>
           <Ul className={optionsActive ? "active" : ""}>
-            <Li><A to="/candidates">Candidates</A></Li>
-            <Li><A to="/interview">Interview Feedback</A></Li>
-            <Li><A to="/reports">Reports</A></Li>
+            <Li><A to="/candidates" onClick={toggleOptions} >Candidates</A></Li>
+            <Li><A to="/interview" onClick={toggleOptions} >Interview Feedback</A></Li>
+            <Li><A to="/reports" onClick={toggleOptions} >Reports</A></Li>
           </Ul>
         </NavLinks>
 

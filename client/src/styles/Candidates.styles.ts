@@ -15,27 +15,20 @@ export const CandidateWrapper = styled.section`
 `;
 
 export const CandidatesList = styled.table`
-  color: white;
-  border: 1px solid black;
+  color: black;
   font-size: 0.85rem;
   width: 70%;
   border-collapse: collapse;
 
   @media (max-width: 768px) {
+    margin-top: 2rem;
     display: block;
   }
 `; 
 
 export const Tbody = styled.tbody`
-  & Tr:nth-child(odd) {
-    background-color: #00000088;
-  }
-  & Tr:nth-child(even) {
-    background-color: grey;
-  }
-
   & Th {
-    top: 10svh;
+    top: 12.5svh;
     position: sticky;
   }
 
@@ -57,6 +50,7 @@ export const Tr = styled.tr`
 `;
 
 export const Th = styled.th`
+  color: white;
   border: 1px solid black;
   background: black;
   letter-spacing: 1px;
@@ -75,7 +69,7 @@ export const Td = styled.td`
   transition: 0.3s ease;
 
   @media (max-width: 768px) {
-    color: white;
+    color: black;
     display: block;
     text-align: right;
     position: relative;
