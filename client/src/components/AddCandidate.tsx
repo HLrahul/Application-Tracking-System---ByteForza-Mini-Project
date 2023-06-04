@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AddCandidateWrapper, Form, InputPair, P, Input, Label, Section, CommonSkillsSection, SkillLabel, Left, Center, Right } from "../styles/AddCandidate.styles";
 import { Button } from "../styles/Common.styles";
 
+import { BASE_URL } from "../api/axios";
 import axios from "../api/axios";
 
 function AddCandidate() {
@@ -23,24 +24,28 @@ function AddCandidate() {
     'Django',
   ];
 
-  const [response, setResponse] = useState("");
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [experience, setExperience] = useState(0);
-  const [skills, setSkills] = useState("");
-  const [noticePeriod, setNoticePeriod] = useState(0);
-  const [ctc, setCtc] = useState(0);
-  const [expectedCtc, setExpectedCtc] = useState(0);
-  const [location, setLocation] = useState("");
-  const [preferredLocation, setPreferredLocation] = useState("");
-  const [sources, setSources] = useState("");
-  const [notes, setNotes] = useState("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [experience, setExperience] = useState<number>(0);
+  const [skills, setSkills] = useState<string>("");
+  const [noticePeriod, setNoticePeriod] = useState<number>(0);
+  const [ctc, setCtc] = useState<number>(0);
+  const [expectedCtc, setExpectedCtc] = useState<number>(0);
+  const [location, setLocation] = useState<string>("");
+  const [preferredLocation, setPreferredLocation] = useState<string>("");
+  const [sources, setSources] = useState<string>("");
+  const [notes, setNotes] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
 
   const handleSubmit = async () => {
 
-    console.log("Request SENT!")
+    const form = document.getElementById("addCandidateForm") as HTMLFormElement;
+    if (form && form.checkValidity()) {
+      console.log("Request SENT!");
+    } else if (form) {
+      form.reportValidity();
+      return;
+    }
 
     const candidateData = {
       'name': name,
@@ -58,9 +63,9 @@ function AddCandidate() {
     }
 
     try {
-      console.log(setResponse(await axios.post(JSON.stringify(candidateData))));
+      console.log((await axios.post(BASE_URL, { candidateData })));
     } catch (err) {
-      console.log(setResponse(JSON.stringify(err)));
+      console.log((JSON.stringify(err)));
     }
   }
 
@@ -88,9 +93,9 @@ function AddCandidate() {
 
   return (
     <AddCandidateWrapper>
-      {/* <P className="add-candidate-title"> Candidate Details </P> */}
+      <P className="add-candidate-title"> { } </P>
 
-      <Form>
+      <Form id="addCandidateForm">
 
         <Left>
           <InputPair>
@@ -105,7 +110,7 @@ function AddCandidate() {
 
           <InputPair>
             <P>Years of Experience</P>
-            <Input type="number" value={experience} placeholder="YOE" onChange={e => { setExperience(parseInt(e.target.value)); }} required />
+            <Input type="number" placeholder="YOE" onChange={e => { setExperience(parseInt(e.target.value)); }} required />
           </InputPair>
 
           <InputPair>
@@ -115,11 +120,11 @@ function AddCandidate() {
               value={skills}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSkills(e.target.value)} />
             <Section>
-              {/* <P>Common Skills</P> */}
               <CommonSkillsSection>
-                {commonSkills.map((skill: string) => (
-                  <Label key={skill} className="check-box">
+                {commonSkills.map((skill: string, i: number) => (
+                  <Label key={i} className="check-box">
                     <Input
+                      key={`input-${i}`}
                       className="check-box"
                       type="checkbox"
                       value={skill}
@@ -141,12 +146,12 @@ function AddCandidate() {
 
           <InputPair>
             <P>CTC</P>
-            <Input type="number" placeholder="Cost to Company" onChange={e => { setCtc(parseInt(e.target.value)); }} required />
+            <Input type="number" step="0.1" placeholder="Cost to Company" onChange={e => { setCtc(parseInt(e.target.value)); }} required />
           </InputPair>
 
           <InputPair>
             <P>Expected CTC</P>
-            <Input type="number" placeholder="Expected CTC" onChange={e => { setExpectedCtc(parseInt(e.target.value)); }} required />
+            <Input type="number" step="0.1" placeholder="Expected CTC" onChange={e => { setExpectedCtc(parseInt(e.target.value)); }} required />
           </InputPair>
 
           <InputPair>
@@ -181,7 +186,7 @@ function AddCandidate() {
             <Input type="file" accept=".pdf, .doc, .docx" onChange={handleFileChange} />
           </InputPair>
 
-          <Button type="submit" className="add-candidate-btn" onClick={e => { e.preventDefault(); handleSubmit; }}>
+          <Button type="submit" className="add-candidate-btn" onClick={e => { e.preventDefault(); handleSubmit(); }}>
             + Add Candidate
           </Button>
         </Right>

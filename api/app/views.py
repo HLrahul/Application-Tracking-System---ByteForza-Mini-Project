@@ -38,7 +38,7 @@ def get_candidates():
 
 def add_candidate():
     candidate_data = request.json
-    
+
     candidate = Candidate(
         name=candidate_data['name'],
         email=candidate_data['email'],

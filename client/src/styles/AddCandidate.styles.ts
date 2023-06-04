@@ -98,6 +98,6 @@ export const SkillLabel = styled.section`
 
 export const Left = styled.div``;
 
-export const Center = styled.div``;
+export const Center = styled.section``;
 
 export const Right = styled.div``;
