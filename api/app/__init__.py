@@ -19,7 +19,14 @@ from app import models
 from app.database import create_database
 create_database()
 
-CORS(app, origins='http://localhost:5173', supports_credentials=True, expose_headers="Content-Type")
+CORS(app, resources={
+    r"/*": {
+        "origins": "http://localhost:5173"
+}})
+app.config['CORS_ORIGINS'] = ['http://*']
+app.config['CORS_ALLOW_HEADERS'] = ['Content-Type', 'Authorization']
+app.config['CORS_METHODS'] = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+app.config['CORS_SUPPORTS_CREDENTIALS'] = True
 
 @app.after_request
 def add_cors_headers(response):

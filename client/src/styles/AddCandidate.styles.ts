@@ -16,7 +16,7 @@ export const Form = styled.form`
   display: flex;
   gap: 4rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     flex-direction: column;
     gap: 0;
   }
@@ -76,7 +76,7 @@ export const Label = styled.label`
 
 export const Section = styled.section`
   margin-top: 10px;
-  padding: 10px;
+  padding: 5px 10px;
   height: fit-content;
   width: 16rem;
   display: flex;
@@ -101,3 +101,5 @@ export const Left = styled.div``;
 export const Center = styled.section``;
 
 export const Right = styled.div``;
+
+export const Corner = styled.div``;

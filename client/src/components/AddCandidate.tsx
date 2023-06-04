@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AddCandidateWrapper, Form, InputPair, P, Input, Label, Section, CommonSkillsSection, SkillLabel, Left, Center, Right } from "../styles/AddCandidate.styles";
+import { AddCandidateWrapper, Form, InputPair, P, Input, Label, Section, CommonSkillsSection, SkillLabel, Left, Center, Right, Corner } from "../styles/AddCandidate.styles";
 import { Button } from "../styles/Common.styles";
 
 import { BASE_URL } from "../api/axios";
@@ -26,6 +26,7 @@ function AddCandidate() {
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<number>(0);
   const [experience, setExperience] = useState<number>(0);
   const [skills, setSkills] = useState<string>("");
   const [noticePeriod, setNoticePeriod] = useState<number>(0);
@@ -50,6 +51,7 @@ function AddCandidate() {
     const candidateData = {
       'name': name,
       'email': email,
+      'phone': phone,
       'experience': experience,
       'skills': skills,
       'notice_period': noticePeriod,
@@ -57,13 +59,13 @@ function AddCandidate() {
       'expected_ctc': expectedCtc,
       'location': location,
       'preferred_location': preferredLocation,
-      'sources': sources,
+      'source': sources,
       'notes': notes,
       'resume': file,
     }
 
     try {
-      console.log((await axios.post(BASE_URL, { candidateData })));
+      console.log((await axios.post(BASE_URL, { ...candidateData })));
     } catch (err) {
       console.log((JSON.stringify(err)));
     }
@@ -109,10 +111,18 @@ function AddCandidate() {
           </InputPair>
 
           <InputPair>
+            <P>Phone</P>
+            <Input type="number" placeholder="Phone Number" onChange={e => { setPhone(parseInt(e.target.value)); }} required />
+          </InputPair>
+
+          <InputPair>
             <P>Years of Experience</P>
             <Input type="number" placeholder="YOE" onChange={e => { setExperience(parseInt(e.target.value)); }} required />
           </InputPair>
 
+        </Left>
+
+        <Center>
           <InputPair>
             <P>Key Skills</P>
             <Input type="text"
@@ -136,14 +146,15 @@ function AddCandidate() {
               </CommonSkillsSection>
             </Section>
           </InputPair>
-        </Left>
 
-        <Center>
           <InputPair>
             <P>Notice Period</P>
             <Input type="number" placeholder="in months" onChange={e => { setNoticePeriod(parseInt(e.target.value)); }} required />
           </InputPair>
 
+        </Center>
+
+        <Right>
           <InputPair>
             <P>CTC</P>
             <Input type="number" step="0.1" placeholder="Cost to Company" onChange={e => { setCtc(parseInt(e.target.value)); }} required />
@@ -164,6 +175,9 @@ function AddCandidate() {
             <Input type="text" placeholder="Preferred Location" onChange={e => { setPreferredLocation(e.target.value); }} required />
           </InputPair>
 
+        </Right>
+
+        <Corner>
           <InputPair>
             <P>Source</P>
             <Input type="text" placeholder="Source" onChange={e => { setSources(e.target.value) }} list="sources" />
@@ -173,9 +187,7 @@ function AddCandidate() {
               <option value="Referred by ">Referred</option>
             </datalist>
           </InputPair>
-        </Center>
 
-        <Right>
           <InputPair>
             <P>Notes</P>
             <Input className="notes-text-area" type="text-area" placeholder="Notes about the candidate" onChange={e => { setNotes(e.target.value); }} />
@@ -189,7 +201,7 @@ function AddCandidate() {
           <Button type="submit" className="add-candidate-btn" onClick={e => { e.preventDefault(); handleSubmit(); }}>
             + Add Candidate
           </Button>
-        </Right>
+        </Corner>
 
       </Form>
 

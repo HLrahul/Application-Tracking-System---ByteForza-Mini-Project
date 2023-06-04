@@ -17,6 +17,7 @@ export const Button = styled.button`
   }
 
   &.add-candidate-btn {
-    margin-top: 1rem;
+    margin-top: 2rem;
+    margin-left: 2.5rem;
   }
 `;
