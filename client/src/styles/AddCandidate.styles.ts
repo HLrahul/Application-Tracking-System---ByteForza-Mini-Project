@@ -26,11 +26,18 @@ export const InputPair = styled.div`
   padding: 15px 0px;
 `;
 
+export const Message = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+`;
+
 export const P = styled.p`
   font-weight: bolder;
 
   &.add-candidate-title {
-    font-size: 2rem;
+    font-size: 1rem;
   }
 
   &.notes-text-area {

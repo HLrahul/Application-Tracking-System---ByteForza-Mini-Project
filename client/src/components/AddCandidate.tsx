@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AddCandidateWrapper, Form, InputPair, P, Input, Label, Section, CommonSkillsSection, SkillLabel, Left, Center, Right, Corner } from "../styles/AddCandidate.styles";
+import { AddCandidateWrapper, Form, InputPair, Message, P, Input, Label, Section, CommonSkillsSection, SkillLabel, Left, Center, Right, Corner } from "../styles/AddCandidate.styles";
 import { Button } from "../styles/Common.styles";
 
 import { BASE_URL } from "../api/axios";
@@ -24,6 +24,8 @@ function AddCandidate() {
     'Django',
   ];
 
+  const [response, setResponse] = useState<string>("");
+
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<number>(0);
@@ -37,6 +39,30 @@ function AddCandidate() {
   const [sources, setSources] = useState<string>("");
   const [notes, setNotes] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
+
+  function postSubmit() {
+    const form = document.getElementById("addCandidateForm") as HTMLFormElement;
+    if (form) {
+      form.reset();
+    }
+
+    setName("");
+    setEmail("");
+    setPhone(0);
+    setSkills("");
+    setCtc(0);
+    setExpectedCtc(0);
+    setLocation("");
+    setPreferredLocation("");
+    setSources("");
+    setNotes("");
+    setFile(null);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
 
   const handleSubmit = async () => {
 
@@ -65,10 +91,14 @@ function AddCandidate() {
     }
 
     try {
-      console.log((await axios.post(BASE_URL, { ...candidateData })));
+      const response = await axios.post(BASE_URL, { ...candidateData });
+      setResponse(response?.data?.message);
     } catch (err) {
       console.log((JSON.stringify(err)));
+      setResponse("Unable to add Candidate!");
     }
+
+    postSubmit();
   }
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -95,7 +125,7 @@ function AddCandidate() {
 
   return (
     <AddCandidateWrapper>
-      <P className="add-candidate-title"> { } </P>
+      <Message><P className="add-candidate-title"> {response} </P></Message>
 
       <Form id="addCandidateForm">
 
