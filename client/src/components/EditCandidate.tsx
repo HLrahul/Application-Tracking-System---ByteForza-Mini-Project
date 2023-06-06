@@ -35,6 +35,9 @@ function EditCandidate() {
     try {
       const response = await axios.get(`${BASE_URL}/${id}`);
 
+      const receivedDate = new Date(response.data.interview_date_time);
+      const formattedDateTime = receivedDate.toISOString().slice(0, 16);;
+
       setName(response.data?.name);
       setEmail(response.data?.email);
       setPhone(response.data?.phone);
@@ -49,27 +52,13 @@ function EditCandidate() {
       setNotes(response.data?.notes);
       setCandidateStatus(response.data?.candidate_status);
       setInterviewPanel(response.data?.interview_panel);
-      setInterviewDateTime(response.data?.interview_date_time);
+      setInterviewDateTime(formattedDateTime);
       setRequirement(response.data?.requirement_for_project);
 
     } catch (err) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    const parsedDateTime = new Date(interviewDateTime);
-    const formattedDateTime = parsedDateTime.toLocaleString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-    });
-
-    setInterviewDateTime(formattedDateTime);
-  }, [interviewDateTime])
 
   useEffect(() => {
     if (!requestRef.current) {
@@ -79,29 +68,37 @@ function EditCandidate() {
   });
 
   const updateCandidate = async () => {
+
+    const formattedDateTime = interviewDateTime.toString();
+
     const candidate = {
-      id,
-      name,
-      email,
-      phone,
-      experience,
-      skills,
-      noticePeriod,
-      ctc,
-      expectedCtc,
-      location,
-      preferredLocation,
-      source,
-      notes,
-      candidateStatus,
-      interviewPanel,
-      interviewDateTime,
-      requirement,
+      'id': id,
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'experience': experience,
+      'skills': skills,
+      'notice_period': noticePeriod,
+      'ctc': ctc,
+      'expected_ctc': expectedCtc,
+      'location': location,
+      'preferred_location': preferredLocation,
+      'source': source,
+      'notes': notes,
+      'candidate_status': candidateStatus,
+      'interview_panel': interviewPanel,
+      'interview_date_time': formattedDateTime,
+      'requirement_for_project': requirement,
     };
 
     try {
       const response = await axios.put(BASE_URL, { ...candidate });
       setResStatus(response.data?.message);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     } catch (err) {
       console.log(err);
     }
@@ -110,7 +107,7 @@ function EditCandidate() {
 
   return (
     <EditCandidateWrapper>
-      <Message><P> {resStatus} </P></Message>
+      <Message> {resStatus} </Message>
 
       <EditForm>
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { P, CandidateWrapper, CandidatesList, Tbody, Tr, Th, Td } from '../styles/Candidates.styles';
 import { Button } from '../styles/Common.styles';
@@ -7,6 +7,8 @@ import { BASE_URL } from '../api/axios';
 import axios from '../api/axios';
 
 function Candidates() {
+
+  const loadRef = useRef(false);
 
   const [candidatesList, setCandidatesList] = useState([]);
 
@@ -20,7 +22,10 @@ function Candidates() {
   }
 
   useEffect(() => {
-    getCandidates();
+    if (!loadRef.current) {
+      loadRef.current = true;
+      getCandidates();
+    }
   }, []);
 
   const navigate = useNavigate();

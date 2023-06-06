@@ -5,6 +5,7 @@ export const P = styled.p``;
 export const EditCandidateWrapper = styled.div`
   min-height: 87.5svh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
@@ -13,7 +14,8 @@ export const Message = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
 `;
 
 export const EditForm = styled.form`
@@ -69,4 +71,5 @@ export const Option = styled.option``;
 
 export const Left = styled.div``;
 export const Center = styled.div``;
-export const Right = styled.div``;
+export const Right = styled.div`
+`;

@@ -19,6 +19,10 @@ export const Button = styled.button`
   &.add-candidate-btn {
     margin-top: 2rem;
     margin-left: 2.5rem;
+
+    @media (max-width: 1024px) {
+      margin-left: 3.5rem;
+    }
   }
 
   &.candidate-edit-btn {
@@ -29,5 +33,9 @@ export const Button = styled.button`
   &.update-candidate-btn {
     margin-top: 2rem;
     margin-left: 4rem;
+
+    @media (max-width: 1024px) {
+      margin-left: 5rem;
+    }
   }
 `;

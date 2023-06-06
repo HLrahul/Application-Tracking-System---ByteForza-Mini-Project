@@ -3,7 +3,6 @@ Each function or view of the api for managing the requests.
 """
 
 from flask import jsonify, request
-from dateutil.parser import parse
 from app import db
 from app.models import Candidate
 
@@ -43,8 +42,6 @@ def get_candidate(candidate_id):
     if candidate:
         resume_link = f"/resume/{candidate.id}"
 
-        interview_date_time_str = candidate.interview_date_time.strftime('%Y-%m-%dT%H:%M:%S')
-
         candidate_data = {
             'id': candidate.id,
             'name': candidate.name,
@@ -62,7 +59,7 @@ def get_candidate(candidate_id):
             "resume": resume_link,
             "candidate_status": candidate.candidate_status,
             "interview_panel": candidate.interview_panel,
-            "interview_date_time": interview_date_time_str,
+            "interview_date_time": candidate.interview_date_time,
             "requirement_for_project": candidate.requirement_for_project,
         }
 
@@ -111,8 +108,6 @@ def update_candidate(candidate_id):
 
     candidate_data = request.json
 
-    interview_date_time = parse(candidate.interview_date_time)
-
     candidate.name = candidate_data.get('name', candidate.name)
     candidate.email = candidate_data.get('email', candidate.email)
     candidate.phone = candidate_data.get('phone', candidate.phone)
@@ -127,7 +122,7 @@ def update_candidate(candidate_id):
     candidate.notes = candidate_data.get('notes', candidate.notes)
     candidate.candidate_status = candidate_data.get('candidate_status', candidate.candidate_status)
     candidate.interview_panel = candidate_data.get('interview_panel', candidate.interview_panel)
-    candidate.interview_date_time = candidate_data.get('interview_date_time', interview_date_time)
+    candidate.interview_date_time = candidate_data.get('interview_date_time', candidate.interview_date_time)
     candidate.requirement_for_project = candidate_data.get('requirement_for_project', candidate.requirement_for_project)
 
     try:
