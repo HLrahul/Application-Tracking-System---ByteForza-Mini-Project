@@ -36,7 +36,7 @@ function EditCandidate() {
       const response = await axios.get(`${BASE_URL}/${id}`);
 
       const receivedDate = new Date(response.data.interview_date_time);
-      const formattedDateTime = receivedDate.toISOString().slice(0, 16);;
+      const formattedDateTime = receivedDate.toISOString().slice(0, 16);
 
       setName(response.data?.name);
       setEmail(response.data?.email);
