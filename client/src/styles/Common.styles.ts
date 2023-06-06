@@ -20,4 +20,14 @@ export const Button = styled.button`
     margin-top: 2rem;
     margin-left: 2.5rem;
   }
+
+  &.candidate-edit-btn {
+    padding: 5px 10px;
+    border-radius: 0;
+  }
+
+  &.update-candidate-btn {
+    margin-top: 2rem;
+    margin-left: 4rem;
+  }
 `;

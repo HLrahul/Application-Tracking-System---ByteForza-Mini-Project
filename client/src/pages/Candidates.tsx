@@ -58,7 +58,7 @@ function Candidates() {
                           <Td data-label="CTC"> {candidate['ctc']} </Td>
                           <Td data-label="Expected CTC"> {candidate['expected_ctc']} </Td>
                           <Td data-label="Edit">
-                            <Button onClick={e => { e.preventDefault(); navigate(`/candidate/${candidate['id']}`) }} >Edit</Button>
+                            <Button className="candidate-edit-btn" onClick={e => { e.preventDefault(); navigate(`/candidate/${candidate['id']}`) }} >Edit</Button>
                           </Td>
                         </Tr>
                       )

@@ -229,7 +229,7 @@ function AddCandidate() {
           </InputPair>
 
           <Button type="submit" className="add-candidate-btn" onClick={e => { e.preventDefault(); handleSubmit(); }}>
-            + Add Candidate
+            Add Candidate
           </Button>
         </Corner>
 
