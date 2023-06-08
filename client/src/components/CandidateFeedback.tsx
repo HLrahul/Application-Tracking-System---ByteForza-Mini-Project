@@ -27,7 +27,7 @@ function CandidateFeedback() {
   const [programmingRating, setProgrammingRating] = useState<number>();
   const [programmingComments, setProgrammingComments] = useState<string>();
   const [interviewStatus, setInterviewStatus] = useState<string>();
-  const [interviewerComment, setInterviewerComment] = useState<string>();
+  const [interviewerComments, setInterviewerComments] = useState<string>();
 
   const getCandidate = async () => {
     try {
@@ -54,7 +54,7 @@ function CandidateFeedback() {
       setProgrammingRating(response.data?.programming_rating);
       setProgrammingComments(response.data?.programming_comments);
       setInterviewStatus(response.data?.interview_status);
-      setInterviewerComment(response.data?.interviewer_comments);
+      setInterviewerComments(response.data?.interviewer_comments);
     } catch (err) {
       console.log(err);
     }
@@ -80,7 +80,7 @@ function CandidateFeedback() {
       'programming_rating': programmingRating,
       'programming_comments': programmingComments,
       'interview_status': interviewStatus,
-      'interviewer_comments': interviewerComment,
+      'interviewer_comments': interviewerComments,
     }
 
     try {
@@ -187,7 +187,7 @@ function CandidateFeedback() {
                 </Select>
               </Td>
               <Td data-label='Interviewer Comments'>
-                <Input className="comments-field" type="text" value={interviewerComment} onChange={e => { setInterviewerComment(e.target.value); }} />
+                <Input className="comments-field" type="text" value={interviewerComments} onChange={e => { setInterviewerComments(e.target.value); }} />
               </Td>
             </Tr>
           </Tbody>

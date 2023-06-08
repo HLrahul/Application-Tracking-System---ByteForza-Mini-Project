@@ -229,7 +229,7 @@ def get_candidate_feedback(candidate_id):
         'programming_rating': candidate_feedback.programming_rating,
         'programming_comments': candidate_feedback.programming_comments,
         'interview_status': candidate_feedback.interview_status,
-        'interviewer_commments': candidate_feedback.interviewer_comments,
+        'interviewer_comments': candidate_feedback.interviewer_comments,
     }
 
     return jsonify(feedback_data), 200
