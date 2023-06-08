@@ -29,7 +29,7 @@ def root_methods():
 def get_candidate_by_id(candidate_id):
     return get_candidate(candidate_id)
 
-@app.reoute('/candidate-feedback/<int:candidate_id>', methods=['GET', 'PUT'])
+@app.route('/candidate-feedback/<int:candidate_id>', methods=['GET', 'PUT'])
 def candidate_feedback_methods(candidate_id):
 
     if request.method == 'GET':
