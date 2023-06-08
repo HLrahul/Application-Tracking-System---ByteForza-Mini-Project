@@ -38,4 +38,8 @@ export const Button = styled.button`
       margin-left: 5rem;
     }
   }
+
+  &.feedback-save-btn {
+    width: fit-content;
+  }
 `;

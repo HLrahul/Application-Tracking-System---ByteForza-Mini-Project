@@ -36,10 +36,10 @@ export const Table = styled.table`
 `;
 
 export const Tbody = styled.tbody`
-  & Th {
+  /* & Th {
     top: 12.5svh;
     position: sticky;
-  }
+  } */
 
   @media (max-width: 768px) {
     display: block;
@@ -102,4 +102,14 @@ export const FeedbackSection = styled.div`
 
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
 `;
+
+export const InterviewerFeedback = styled.section`
+  width: 100%;
+`;
+
+export const Select = styled.select``;
+export const Option = styled.option``;

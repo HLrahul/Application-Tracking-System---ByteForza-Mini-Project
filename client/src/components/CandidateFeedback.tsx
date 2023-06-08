@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 
 import axios, { BASE_URL } from "../api/axios";
 
-import { CandidateFeedbackWrapper, CandidateInfo, Table, Tbody, Th, Tr, FeedbackSection } from "../styles/CandidateFeedback.styles";
+import { CandidateFeedbackWrapper, CandidateInfo, Table, Tbody, Th, Tr, FeedbackSection, InterviewerFeedback, Select, Option } from "../styles/CandidateFeedback.styles";
 import { Td } from "../styles/Candidates.styles";
+import { Button } from "../styles/Common.styles";
 
 function CandidateFeedback() {
 
@@ -38,7 +39,7 @@ function CandidateFeedback() {
       <CandidateInfo>
         <Table>
           <Tbody>
-            <Tr>
+            <Tr className="headRow">
               <Th>Name</Th>
               <Th>Skills</Th>
             </Tr>
@@ -63,28 +64,53 @@ function CandidateFeedback() {
 
             <Tr>
               <Td data-label='OOPS'>OOPS</Td>
-              <Td></Td>
-              <Td></Td>
-              <Td></Td>
+              <Td data-label='Experience'></Td>
+              <Td data-label='Rating'></Td>
+              <Td data-label='Comments'></Td>
             </Tr>
 
             <Tr>
               <Td data-label='Logical Thinking'>Logical Thinking</Td>
-              <Td></Td>
-              <Td></Td>
-              <Td></Td>
+              <Td data-label='Experience'></Td>
+              <Td data-label='Rating'></Td>
+              <Td data-label='Comments'></Td>
             </Tr>
 
             <Tr>
               <Td data-label='Programming'>Programming</Td>
-              <Td></Td>
-              <Td></Td>
-              <Td></Td>
+              <Td data-label='Experience'></Td>
+              <Td data-label='Rating'></Td>
+              <Td data-label='Comments'></Td>
             </Tr>
           </Tbody>
         </Table>
+
       </FeedbackSection>
 
+      <InterviewerFeedback>
+        <Table>
+          <Tbody>
+            <Tr className="headRow">
+              <Th>Interview Status</Th>
+              <Th>Interviewer Comments</Th>
+            </Tr>
+
+            <Tr>
+              <Td data-label='Interview Status'>
+                <Select>
+                  <Option value="">-- Select --</Option>
+                  <Option value="Selected - Proceed to Next Round">Selected - Proceed to Next Round</Option>
+                  <Option value="Rejected">Rejected</Option>
+                  <Option value="On-hold">On Hold</Option>
+                </Select>
+              </Td>
+              <Td data-label='Interviewer Comments'></Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </InterviewerFeedback>
+
+      <Button className="feedback-save-btn" onClick={e => { e.preventDefault(); }}>Save</Button>
     </CandidateFeedbackWrapper>
   )
 
