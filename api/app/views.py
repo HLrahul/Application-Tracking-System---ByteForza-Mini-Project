@@ -4,7 +4,7 @@ Each function or view of the api for managing the requests.
 
 from flask import jsonify, request
 from app import db
-from app.models import Candidate
+from app.models import Candidate, CandidateFeedback
 
 def get_candidates():
     candidates = Candidate.query.all()
@@ -90,12 +90,27 @@ def add_candidate():
         preferred_location=candidate_data['preferred_location'],
         source=candidate_data['source'],
         notes=candidate_data['notes'],
+        resume=candidate_data.get('resume'),
+        candidate_status=candidate_data.get('candidate_status'),
+        interview_panel=candidate_data.get('interview_panel'),
+        interview_date_time=candidate_data.get('interview_date_time'),
+        requirement_for_project=candidate_data.get('requirement_for_project')
     )
-    
-    if 'resume' in candidate_data:
-        candidate.resume = candidate_data['resume']
+
+    feedback = CandidateFeedback(
+        oops_experience=None,
+        oops_rating=None,
+        oops_comments='',
+        logical_thinking_experience=None,
+        logical_thinking_rating=None,
+        logical_thinking_comments='',
+        programming_experience=None,
+        programming_rating=None,
+        programming_comments=''
+    )
 
     try:
+        candidate.feedback = feedback  # Associate the feedback with the candidate
         db.session.add(candidate)
         db.session.commit()
         return jsonify({'message': 'Candidate added successfully'}), 200
@@ -139,17 +154,78 @@ def update_candidate(candidate_id):
     
 
 def delete_candidate(candidate_id):
-    
     candidate = Candidate.query.get(candidate_id)
 
     if not candidate:
         return jsonify({'message': 'Candidate not found'}), 404
 
     try:
+        # Delete the candidate feedback associated with the candidate
+        CandidateFeedback.query.filter_by(candidate_id=candidate.id).delete()
+
         db.session.delete(candidate)
         db.session.commit()
-        return jsonify({'message': 'Candidate deleted successfully'}), 200
+
+        return jsonify({'message': 'Candidate and associated feedback deleted successfully'}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'message': str(e)}), 500
+    
+
+def update_candidate_feedback(candidate_id):
+    candidate = Candidate.query.get(candidate_id)
+
+    if not candidate:
+        return jsonify({'message': 'Candidate not found'}), 404
+
+    candidate_feedback = candidate.feedback
+
+    if not candidate_feedback:
+        return jsonify({'message': 'Candidate feedback not found'}), 404
+
+    feedback_data = request.json
+
+    candidate_feedback.oops_experience = feedback_data.get('oops_experience')
+    candidate_feedback.oops_rating = feedback_data.get('oops_rating')
+    candidate_feedback.oops_comments = feedback_data.get('oops_comments')
+    candidate_feedback.logical_thinking_experience = feedback_data.get('logical_thinking_experience')
+    candidate_feedback.logical_thinking_rating = feedback_data.get('logical_thinking_rating')
+    candidate_feedback.logical_thinking_comments = feedback_data.get('logical_thinking_comments')
+    candidate_feedback.programming_experience = feedback_data.get('programming_experience')
+    candidate_feedback.programming_rating = feedback_data.get('programming_rating')
+    candidate_feedback.programming_comments = feedback_data.get('programming_comments')
+
+    try:
+        db.session.commit()
+        return jsonify({'message': 'Candidate feedback updated successfully'}), 200
     
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'message': str(e)}), 500
+    
+
+def get_candidate_feedback(candidate_id):
+    candidate = Candidate.query.get(candidate_id)
+
+    if not candidate:
+        return jsonify({'message': 'Candidate not found'}), 404
+
+    candidate_feedback = candidate.feedback
+
+    if not candidate_feedback:
+        return jsonify({'message': 'Candidate feedback not found'}), 404
+
+    feedback_data = {
+        'oops_experience': candidate_feedback.oops_experience,
+        'oops_rating': candidate_feedback.oops_rating,
+        'oops_comments': candidate_feedback.oops_comments,
+        'logical_thinking_experience': candidate_feedback.logical_thinking_experience,
+        'logical_thinking_rating': candidate_feedback.logical_thinking_rating,
+        'logical_thinking_comments': candidate_feedback.logical_thinking_comments,
+        'programming_experience': candidate_feedback.programming_experience,
+        'programming_rating': candidate_feedback.programming_rating,
+        'programming_comments': candidate_feedback.programming_comments
+    }
+
+    return jsonify(feedback_data), 200
