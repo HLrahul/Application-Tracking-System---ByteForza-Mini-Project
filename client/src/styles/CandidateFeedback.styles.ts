@@ -19,6 +19,13 @@ export const CandidateFeedbackWrapper = styled.div`
   gap: 2rem;
 `;
 
+export const Message = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+`;
+
 export const CandidateInfo = styled.section` 
   width: 100%;
 `;
@@ -109,6 +116,37 @@ export const FeedbackSection = styled.div`
 
 export const InterviewerFeedback = styled.section`
   width: 100%;
+`;
+
+export const Input = styled.input`
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    box-shadow: none;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
+  &:-webkit-autofill {
+    -webkit-text-fill-color: white !important;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin-left: 0;
+  }
+
+  outline: none;
+  border: none;
+  width: 2rem;
+  border-bottom: 1px solid black;
+  padding: 5px 0px;
+  background: transparent;
+  text-align: center;
+
+  &.comments-field {
+    width: 10rem;
+  }
 `;
 
 export const Select = styled.select``;

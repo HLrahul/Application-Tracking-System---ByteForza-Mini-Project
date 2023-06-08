@@ -39,6 +39,8 @@ class CandidateFeedback(db.Model):
     programming_experience = db.Column(db.Integer, nullable=True)
     programming_rating = db.Column(db.Integer, nullable=True)
     programming_comments = db.Column(db.Text)
+    interview_status = db.Column(db.String(50), nullable=True)
+    interviewer_comments =db.Column(db.Text, nullable=True)
     
     # one-to-one relationship with the Candidate table
     candidate = db.relationship('Candidate', backref=db.backref('feedback', uselist=False))

@@ -41,5 +41,6 @@ export const Button = styled.button`
 
   &.feedback-save-btn {
     width: fit-content;
+    margin-bottom: 2rem;
   }
 `;

@@ -195,6 +195,8 @@ def update_candidate_feedback(candidate_id):
     candidate_feedback.programming_experience = feedback_data.get('programming_experience')
     candidate_feedback.programming_rating = feedback_data.get('programming_rating')
     candidate_feedback.programming_comments = feedback_data.get('programming_comments')
+    candidate_feedback.interview_status = feedback_data.get('interview_status')
+    candidate_feedback.interviewer_comments = feedback_data.get('interviewer_comments')
 
     try:
         db.session.commit()
@@ -225,7 +227,9 @@ def get_candidate_feedback(candidate_id):
         'logical_thinking_comments': candidate_feedback.logical_thinking_comments,
         'programming_experience': candidate_feedback.programming_experience,
         'programming_rating': candidate_feedback.programming_rating,
-        'programming_comments': candidate_feedback.programming_comments
+        'programming_comments': candidate_feedback.programming_comments,
+        'interview_status': candidate_feedback.interview_status,
+        'interviewer_commments': candidate_feedback.interviewer_comments,
     }
 
     return jsonify(feedback_data), 200
