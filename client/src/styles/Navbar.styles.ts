@@ -49,7 +49,7 @@ export const Ul = styled.ul`
     top: 12.5svh;
     padding-top: 10px;
     right: -100%;
-    height: 25svh;
+    height: 20svh;
     gap: 20px;
     flex-direction: column;
     background-color: black;

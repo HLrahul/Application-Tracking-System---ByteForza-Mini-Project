@@ -1,30 +1,39 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const P = styled.p`
-  font-size: 1rem;
-`;
-
-export const CandidateWrapper = styled.section`
-  min-height: 85vh;
-  width: 100%;
+  min-height: 87.5svh;
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
   align-items: center;
   justify-content: center;
 `;
 
-export const CandidatesList = styled.table`
+export const CandidateFeedbackWrapper = styled.div`
+  min-height: 87.5svh;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 2rem;
+`;
+
+export const CandidateInfo = styled.section` 
+  width: 100%;
+`;
+
+export const Table = styled.table`
   color: black;
   font-size: 0.85rem;
-  width: 70%;
+  width: 100%;
   border-collapse: collapse;
 
   @media (max-width: 768px) {
     margin-top: 2rem;
     display: block;
   }
-`; 
+`;
 
 export const Tbody = styled.tbody`
   & Th {
@@ -86,4 +95,11 @@ export const Td = styled.td`
       padding-left: 10px;
     }
   }
+`;
+
+export const FeedbackSection = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
 `;

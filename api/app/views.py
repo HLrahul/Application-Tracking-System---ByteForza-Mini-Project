@@ -29,6 +29,10 @@ def get_candidates():
             "source": candidate.source,
             "notes": candidate.notes,
             "resume": resume_link,
+            "candidate_status": candidate.candidate_status,
+            "interview_panel": candidate.interview_panel,
+            "interview_date_time": candidate.interview_date_time,
+            "requirement_for_project": candidate.requirement_for_project,
         }
         
         candidates_list.append(candidate_data)
