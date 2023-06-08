@@ -25,12 +25,11 @@ class Candidate(db.Model):
     interview_date_time = db.Column(db.DateTime)
     requirement_for_project = db.Column(db.Text)
 
-    feedback = db.relationship('CandidateFeedback', backref='candidate', uselist=False)
-
 
 class CandidateFeedback(db.Model):
-    id = db.Column(db.Integer, db.ForeignKey('candidate.id'), primary_key=True)
-    
+    id = db.Column(db.Integer, primary_key=True)
+    candidate_id = db.Column(db.Integer, db.ForeignKey('candidate.id'), unique=True, nullable=False)
+
     oops_experience = db.Column(db.Integer, nullable=True)
     oops_rating = db.Column(db.Integer, nullable=True)
     oops_comments = db.Column(db.Text)
@@ -43,4 +42,3 @@ class CandidateFeedback(db.Model):
     
     # one-to-one relationship with the Candidate table
     candidate = db.relationship('Candidate', backref=db.backref('feedback', uselist=False))
-

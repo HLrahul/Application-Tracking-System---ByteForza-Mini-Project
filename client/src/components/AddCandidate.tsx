@@ -187,12 +187,12 @@ function AddCandidate() {
         <Right>
           <InputPair>
             <P>CTC</P>
-            <Input type="number" step="0.1" placeholder="Cost to Company" onChange={e => { setCtc(parseInt(e.target.value)); }} required />
+            <Input type="number" step="0.1" placeholder="Cost to Company" onChange={e => { setCtc(parseFloat(e.target.value)); }} required />
           </InputPair>
 
           <InputPair>
             <P>Expected CTC</P>
-            <Input type="number" step="0.1" placeholder="Expected CTC" onChange={e => { setExpectedCtc(parseInt(e.target.value)); }} required />
+            <Input type="number" step="0.1" placeholder="Expected CTC" onChange={e => { setExpectedCtc(parseFloat(e.target.value)); }} required />
           </InputPair>
 
           <InputPair>
