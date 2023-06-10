@@ -2,8 +2,10 @@
 Each function or view of the api for managing the requests.
 """
 
-from flask import jsonify, request
-from app import db
+import os
+from flask import jsonify, request, send_file
+from werkzeug.utils import secure_filename
+from app import app, db
 from app.models import Candidate, CandidateFeedback
 
 def get_candidates():
@@ -28,6 +30,7 @@ def get_candidates():
             "preferred_location": candidate.preferred_location,
             "source": candidate.source,
             "notes": candidate.notes,
+            "resume_filename": candidate.resume_filename,
             "resume": resume_link,
             "candidate_status": candidate.candidate_status,
             "interview_panel": candidate.interview_panel,
@@ -60,6 +63,7 @@ def get_candidate(candidate_id):
             "preferred_location": candidate.preferred_location,
             "source": candidate.source,
             "notes": candidate.notes,
+            "resume_filename": candidate.resume_filename,
             "resume": resume_link,
             "candidate_status": candidate.candidate_status,
             "interview_panel": candidate.interview_panel,
@@ -73,9 +77,16 @@ def get_candidate(candidate_id):
         return jsonify({'error': 'Candidate not found'}), 404
 
 
-
 def add_candidate():
-    candidate_data = request.json
+    candidate_data = request.form
+
+    resume_file = request.files['resume']
+    filename = secure_filename(resume_file.filename)
+    filepath = os.path.join(app.config['RESUME_FOLDER'], filename)
+    resume_file.save(filepath)
+
+    with open(filepath, "rb") as f:
+        data = f.read()
 
     candidate = Candidate(
         name=candidate_data['name'],
@@ -90,7 +101,8 @@ def add_candidate():
         preferred_location=candidate_data['preferred_location'],
         source=candidate_data['source'],
         notes=candidate_data['notes'],
-        resume=candidate_data.get('resume'),
+        resume_filename=filename,
+        resume=data,
         candidate_status=candidate_data.get('candidate_status'),
         interview_panel=candidate_data.get('interview_panel'),
         interview_date_time=candidate_data.get('interview_date_time'),
@@ -114,11 +126,11 @@ def add_candidate():
         db.session.add(candidate)
         db.session.commit()
         return jsonify({'message': 'Candidate added successfully'}), 200
-        
+
     except Exception as e:
         db.session.rollback()
         return jsonify({'message': str(e)}), 500
-    
+
 
 def update_candidate(candidate_id):
     candidate = Candidate.query.get(candidate_id)
@@ -233,3 +245,11 @@ def get_candidate_feedback(candidate_id):
     }
 
     return jsonify(feedback_data), 200
+
+def get_resume(candidate_id):
+    candidate = Candidate.query.get(candidate_id)
+    if candidate is None:
+        return jsonify({'message': 'Candidate not found'}), 404
+
+    filepath = os.path.join(app.config['RESUME_FOLDER'], candidate.resume_filename)
+    return send_file(filepath, as_attachment=True)

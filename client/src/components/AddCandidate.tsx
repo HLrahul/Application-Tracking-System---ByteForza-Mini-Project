@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AddCandidateWrapper, Form, InputPair, Message, P, Input, Label, Section, CommonSkillsSection, SkillLabel, Left, Center, Right, Corner } from "../styles/AddCandidate.styles";
 import { Button } from "../styles/Common.styles";
 
@@ -64,8 +64,11 @@ function AddCandidate() {
     });
   }
 
-  const handleSubmit = async () => {
+  useEffect(() => {
+    console.log(file);
+  }, [file]);
 
+  const handleSubmit = async () => {
     const form = document.getElementById("addCandidateForm") as HTMLFormElement;
     if (form && form.checkValidity()) {
       console.log("Request SENT!");
@@ -74,32 +77,35 @@ function AddCandidate() {
       return;
     }
 
-    const candidateData = {
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'experience': experience,
-      'skills': skills,
-      'notice_period': noticePeriod,
-      'ctc': ctc,
-      'expected_ctc': expectedCtc,
-      'location': location,
-      'preferred_location': preferredLocation,
-      'source': sources,
-      'notes': notes,
-      'resume': file,
-    }
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('phone', phone.toString());
+    formData.append('experience', experience.toString());
+    formData.append('skills', skills);
+    formData.append('notice_period', noticePeriod.toString());
+    formData.append('ctc', ctc.toString());
+    formData.append('expected_ctc', expectedCtc.toString());
+    formData.append('location', location);
+    formData.append('preferred_location', preferredLocation);
+    formData.append('source', sources);
+    formData.append('notes', notes);
+    formData.append('resume', file as Blob); // Append the file to FormData
 
     try {
-      const response = await axios.post(BASE_URL, { ...candidateData });
+      const response = await axios.post(BASE_URL, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Set the proper content type for FormData
+        },
+      });
       setResponse(response?.data?.message);
     } catch (err) {
-      console.log((JSON.stringify(err)));
+      console.log(JSON.stringify(err));
       setResponse("Unable to add Candidate!");
     }
 
     postSubmit();
-  }
+  };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const skill: string = event.target.value;
@@ -127,7 +133,7 @@ function AddCandidate() {
     <AddCandidateWrapper>
       <Message><P className="add-candidate-title"> {response} </P></Message>
 
-      <Form id="addCandidateForm">
+      <Form encType="multipart/form-data" id="addCandidateForm">
 
         <Left>
           <InputPair>
@@ -235,7 +241,7 @@ function AddCandidate() {
 
       </Form>
 
-    </AddCandidateWrapper>
+    </AddCandidateWrapper >
   )
 
 }

@@ -30,6 +30,7 @@ export const Message = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
   margin-bottom: 2rem;
 `;
 

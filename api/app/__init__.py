@@ -6,13 +6,14 @@ This file is the starting point of the application.
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from app.config import DEBUG, SECRET_KEY, SQLALCHEMY_DATABASE_URI
+from app.config import DEBUG, SECRET_KEY, SQLALCHEMY_DATABASE_URI, RESUME_FOLDER
 
 app = Flask(__name__)
 
 app.config['DEBUG'] = DEBUG
-app.config['SECRET_KEY'] =SECRET_KEY
+app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+app.config['RESUME_FOLDER'] = RESUME_FOLDER
 
 db = SQLAlchemy(app)
 from app import models
