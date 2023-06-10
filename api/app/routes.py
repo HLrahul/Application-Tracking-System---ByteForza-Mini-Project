@@ -5,7 +5,7 @@ The routes in this API are initiated here
 from flask import request
 
 from app import app
-from app.views import get_candidates, get_candidate, add_candidate, update_candidate, delete_candidate, get_candidate_feedback, update_candidate_feedback, get_resume
+from app.views import get_candidates, get_candidate, add_candidate, update_candidate, delete_candidate, get_candidate_feedback, update_candidate_feedback, get_resume, get_total_candidates, get_selected_candidates_count
 
 @app.route('/', methods=['GET', 'POST', 'PUT'])
 def root_methods():
@@ -45,3 +45,10 @@ def candidate_feedback_methods(candidate_id):
     
     if request.method == 'PUT':
         return update_candidate_feedback(candidate_id)
+    
+@app.route('/total-candidates', methods=['GET'])
+def total_candidates():
+    return get_total_candidates()
+@app.route ('/selected-candidates', methods=['GET'])
+def get_selected_candidates():
+    return get_selected_candidates_count()

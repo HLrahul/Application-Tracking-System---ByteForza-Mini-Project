@@ -80,34 +80,55 @@ def get_candidate(candidate_id):
 def add_candidate():
     candidate_data = request.form
 
-    resume_file = request.files['resume']
-    filename = secure_filename(resume_file.filename)
-    filepath = os.path.join(app.config['RESUME_FOLDER'], filename)
-    resume_file.save(filepath)
+    if 'resume' in request.files:
+        resume_file = request.files['resume']
+        filename = secure_filename(resume_file.filename)
+        filepath = os.path.join(app.config['RESUME_FOLDER'], filename)
+        resume_file.save(filepath)
 
-    with open(filepath, "rb") as f:
-        data = f.read()
+        with open(filepath, "rb") as f:
+            data = f.read()
 
-    candidate = Candidate(
-        name=candidate_data['name'],
-        email=candidate_data['email'],
-        phone=candidate_data['phone'],
-        experience=candidate_data['experience'],
-        skills=candidate_data['skills'],
-        notice_period=candidate_data['notice_period'],
-        ctc=candidate_data['ctc'],
-        expected_ctc=candidate_data['expected_ctc'],
-        location=candidate_data['location'],
-        preferred_location=candidate_data['preferred_location'],
-        source=candidate_data['source'],
-        notes=candidate_data['notes'],
-        resume_filename=filename,
-        resume=data,
-        candidate_status=candidate_data.get('candidate_status'),
-        interview_panel=candidate_data.get('interview_panel'),
-        interview_date_time=candidate_data.get('interview_date_time'),
-        requirement_for_project=candidate_data.get('requirement_for_project')
-    )
+        candidate = Candidate(
+            name=candidate_data['name'],
+            email=candidate_data['email'],
+            phone=candidate_data['phone'],
+            experience=candidate_data['experience'],
+            skills=candidate_data['skills'],
+            notice_period=candidate_data['notice_period'],
+            ctc=candidate_data['ctc'],
+            expected_ctc=candidate_data['expected_ctc'],
+            location=candidate_data['location'],
+            preferred_location=candidate_data['preferred_location'],
+            source=candidate_data['source'],
+            notes=candidate_data['notes'],
+            resume_filename=filename,
+            resume=data,
+            candidate_status=candidate_data.get('candidate_status'),
+            interview_panel=candidate_data.get('interview_panel'),
+            interview_date_time=candidate_data.get('interview_date_time'),
+            requirement_for_project=candidate_data.get('requirement_for_project')
+        )
+        
+    else:
+        candidate = Candidate(
+            name=candidate_data['name'],
+            email=candidate_data['email'],
+            phone=candidate_data['phone'],
+            experience=candidate_data['experience'],
+            skills=candidate_data['skills'],
+            notice_period=candidate_data['notice_period'],
+            ctc=candidate_data['ctc'],
+            expected_ctc=candidate_data['expected_ctc'],
+            location=candidate_data['location'],
+            preferred_location=candidate_data['preferred_location'],
+            source=candidate_data['source'],
+            notes=candidate_data['notes'],
+            candidate_status=candidate_data.get('candidate_status'),
+            interview_panel=candidate_data.get('interview_panel'),
+            interview_date_time=candidate_data.get('interview_date_time'),
+            requirement_for_project=candidate_data.get('requirement_for_project')
+        )
 
     feedback = CandidateFeedback(
         oops_experience=None,
@@ -130,7 +151,6 @@ def add_candidate():
     except Exception as e:
         db.session.rollback()
         return jsonify({'message': str(e)}), 500
-
 
 def update_candidate(candidate_id):
     candidate = Candidate.query.get(candidate_id)
@@ -259,3 +279,12 @@ def get_resume(candidate_id):
         return response
     except Exception as e:
         return jsonify({'message': str(e)}), 500
+    
+
+def get_total_candidates():
+    total_candidates = Candidate.query.count()
+    return jsonify({'total_candidates': total_candidates}), 200
+
+def get_selected_candidates_count():
+    selected_candidates_count = CandidateFeedback.query.filter_by(interview_status='Selected').count()
+    return jsonify({'selected_candidates_count': selected_candidates_count}), 200

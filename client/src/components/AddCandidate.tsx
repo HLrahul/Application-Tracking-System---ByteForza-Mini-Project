@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AddCandidateWrapper, Form, InputPair, Message, P, Input, Label, Section, CommonSkillsSection, SkillLabel, Left, Center, Right, Corner } from "../styles/AddCandidate.styles";
 import { Button } from "../styles/Common.styles";
 
@@ -62,10 +62,6 @@ function AddCandidate() {
       behavior: "smooth"
     });
   }
-
-  useEffect(() => {
-    console.log(file);
-  }, [file]);
 
   const handleSubmit = async () => {
     const form = document.getElementById("addCandidateForm") as HTMLFormElement;

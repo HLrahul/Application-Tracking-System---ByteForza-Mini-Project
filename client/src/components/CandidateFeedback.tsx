@@ -181,7 +181,7 @@ function CandidateFeedback() {
               <Td data-label='Interview Status'>
                 <Select value={interviewStatus} onChange={e => { setInterviewStatus(e.target.value); }} >
                   <Option value="">-- Select --</Option>
-                  <Option value="Selected - Proceed to Next Round">Selected - Proceed to Next Round</Option>
+                  <Option value="Selected">Selected</Option>
                   <Option value="Rejected">Rejected</Option>
                   <Option value="On-hold">On Hold</Option>
                 </Select>
