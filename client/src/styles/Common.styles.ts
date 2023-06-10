@@ -30,15 +30,6 @@ export const Button = styled.button`
     border-radius: 0;
   }
 
-  &.update-candidate-btn {
-    margin-top: 2rem;
-    margin-left: 4rem;
-
-    @media (max-width: 1024px) {
-      margin-left: 5rem;
-    }
-  }
-
   &.feedback-save-btn {
     width: fit-content;
     margin-bottom: 2rem;

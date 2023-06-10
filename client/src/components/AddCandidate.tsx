@@ -18,7 +18,6 @@ function AddCandidate() {
     'SQL',
     'Git',
     'Problem Solving',
-    'React',
     'TypeScript',
     'Flask',
     'Django',

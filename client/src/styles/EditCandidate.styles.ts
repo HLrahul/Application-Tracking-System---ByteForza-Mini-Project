@@ -71,5 +71,13 @@ export const Option = styled.option``;
 
 export const Left = styled.div``;
 export const Center = styled.div``;
-export const Right = styled.div`
+export const Right = styled.div``;
+
+export const ButtonSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  gap: 1.5rem;
 `;

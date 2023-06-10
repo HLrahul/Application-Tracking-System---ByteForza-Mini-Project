@@ -3,7 +3,7 @@ Each function or view of the api for managing the requests.
 """
 
 import os
-from flask import jsonify, request, send_file
+from flask import jsonify, request, send_file, make_response
 from werkzeug.utils import secure_filename
 from app import app, db
 from app.models import Candidate, CandidateFeedback
@@ -252,4 +252,10 @@ def get_resume(candidate_id):
         return jsonify({'message': 'Candidate not found'}), 404
 
     filepath = os.path.join(app.config['RESUME_FOLDER'], candidate.resume_filename)
-    return send_file(filepath, as_attachment=True)
+
+    try:
+        response = make_response(send_file(filepath))
+        response.headers['Content-Disposition'] = f'attachment; filename={candidate.resume_filename}'
+        return response
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500

@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import axios, { BASE_URL } from "../api/axios";
 
-import { P, EditCandidateWrapper, EditForm, InputPair, Input, Select, Option, Center, Left, Right, Message } from "../styles/EditCandidate.styles";
+import { P, EditCandidateWrapper, EditForm, InputPair, Input, Select, Option, Center, Left, Right, Message, ButtonSection } from "../styles/EditCandidate.styles";
 import { Button } from "../styles/Common.styles";
 
 function EditCandidate() {
 
   const requestRef = useRef(false);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [resStatus, setResStatus] = useState<string>("");
 
@@ -25,7 +26,8 @@ function EditCandidate() {
   const [preferredLocation, setPreferredLocation] = useState<string>("");
   const [source, setSource] = useState<string>("");
   const [notes, setNotes] = useState<string>("");
-  // const [file, setFile] = useState<File | null>(null);
+  const [fileName, setFileName] = useState("");
+  const [filePath, setFilePath] = useState<string>("");
   const [candidateStatus, setCandidateStatus] = useState<string>();
   const [interviewPanel, setInterviewPanel] = useState<string>();
   const [interviewDateTime, setInterviewDateTime] = useState("");
@@ -50,6 +52,8 @@ function EditCandidate() {
       setPreferredLocation(response.data?.preferred_location);
       setSource(response.data?.source);
       setNotes(response.data?.notes);
+      setFileName(response.data?.resume_filename);
+      setFilePath(response.data?.resume);
       setCandidateStatus(response.data?.candidate_status);
       setInterviewPanel(response.data?.interview_panel);
       setInterviewDateTime(formattedDateTime);
@@ -103,6 +107,45 @@ function EditCandidate() {
       console.log(err);
     }
 
+  };
+
+  const getCandidateResume = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/${filePath}`, {
+        responseType: 'blob',
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${fileName}`);
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+    } catch (err) {
+      console.log(err);
+      setResStatus("Unable to get candidate resume!");
+    }
+  };
+
+  const deleteCandidate = async () => {
+    try {
+      await axios.delete(`${BASE_URL}/${id}`);
+      setResStatus("Deleted Candidate Successfully!");
+
+      navigate('/candidates');
+    } catch (err) {
+      console.log(err);
+      setResStatus("Unable to Delete Candidate");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
   };
 
   return (
@@ -211,7 +254,11 @@ function EditCandidate() {
             <Input type="text" value={requirement} onChange={e => { setRequirement(e.target.value); }} />
           </InputPair>
 
-          <Button className="update-candidate-btn" type="submit" onClick={e => { e.preventDefault(); updateCandidate(); }}>Update</Button>
+          <ButtonSection>
+            <Button className="btn" type="submit" onClick={e => { e.preventDefault(); updateCandidate(); }}>Update</Button>
+            <Button className="btn" type="submit" onClick={e => { e.preventDefault(); getCandidateResume(); }}>Resume</Button>
+            <Button className="btn" type="submit" onClick={e => { e.preventDefault(); deleteCandidate(); }}>Delete Candidate</Button>
+          </ButtonSection>
         </Right>
 
       </EditForm>
