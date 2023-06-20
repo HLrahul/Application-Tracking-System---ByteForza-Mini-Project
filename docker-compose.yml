@@ -19,7 +19,7 @@ services:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - '${CLIENT_PORT}:3000'
+      - '${CLIENT_PORT}:5173'
     depends_on:
       - api
 
